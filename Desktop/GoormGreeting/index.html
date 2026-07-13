@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello VibeCoding!</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            max-width: 640px; 
+            text-align: center;
+        }
+
+        header {
+            margin-bottom: 24px;
+        }
+
+        header h1 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        .display-area {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        /* 💡 줄바꿈이 자연스럽게 적용되도록 line-height와 정렬 유지 */
+        .display-area h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            word-break: keep-all;
+        }
+
+        .time-display {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        #clock {
+            font-weight: bold;
+        }
+
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0.9;
+            padding-left: 2px;
+        }
+
+        .row-inputs {
+            display: flex;
+            gap: 12px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 13px 16px;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: #333333;
+            outline: none;
+            font-weight: 500;
+        }
+
+        input[type="text"]:focus {
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+        }
+
+        .btn {
+            background-color: #ffffff;
+            color: #764ba2;
+            border: none;
+            padding: 0 24px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            margin-bottom: 24px;
+        }
+
+        .guide-section {
+            text-align: left;
+        }
+
+        .guide-section h3 {
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+        }
+
+        .guide-section ul {
+            list-style: none;
+        }
+
+        .guide-section li {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            opacity: 0.9;
+            position: relative;
+            padding-left: 16px;
+            word-break: keep-all;
+        }
+
+        .guide-section li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <header>
+            <h1>👋 안녕, 바이브코딩!</h1>
+            <p class="subtitle"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"AI와 함께 만든 첫 페이지"</p>
+        </header>
+
+        <div class="display-area">
+            <h2 id="greeting-text">반가워요! 오늘도 멋진 코딩 항해를 시작해볼까요? 🚀</h2>
+            <div class="time-display">
+                현재 시간 · <span id="clock">00:00:00</span>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="input-group">
+                <label for="username">당신의 이름(닉네임)을 입력해 보세요</label>
+                <div class="row-inputs">
+                    <input type="text" id="username" placeholder="이름을 입력하고 Enter" onkeyup="handleKeyDown(event, 'name')">
+                    <button class="btn" onclick="saveName()">인사하기</button>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="usergoal">🎯 오늘의 코딩 목표를 설정해 보세요</label>
+                <div class="row-inputs">
+                    <input type="text" id="usergoal" placeholder="목표를 입력하고 Enter" onkeyup="handleKeyDown(event, 'goal')">
+                    <button class="btn" onclick="saveGoal()">등록하기</button>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <footer class="guide-section">
+            <h3>오늘의 학습 포인트 & 팁 ✨</h3>
+            <ul>
+                <li><strong>HTML + CSS:</strong> 중앙에 정렬된 세련된 글래스모피즘 카드를 구현했습니다.</li>
+                <li><strong>로컬스토리지 저장:</strong> 입력 창에 적은 값은 브라우저에 안전하게 상시 보관됩니다.</li>
+                <li><strong>UX 완성도:</strong> 클릭은 물론 키보드 엔터 입력으로도 상호작용이 가능합니다.</li>
+            </ul>
+        </footer>
+    </div>
+
+    <script>
+        function updateClock() {
+            const clockTarget = document.getElementById('clock');
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            clockTarget.innerText = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // 💡 이름과 목표가 함께 입력되었을 때, 목표 가독성을 위해 의도적으로 줄바꿈(\n)을 넣어주는 핵심 로직입니다.
+        function renderDashboard() {
+            const savedName = localStorage.getItem('vibe_name');
+            const savedGoal = localStorage.getItem('vibe_goal');
+            const greeting = document.getElementById('greeting-text');
+            
+            if (savedName && savedGoal) {
+                // 이름과 목표가 둘 다 있을 때 목표를 깔끔하게 다음 줄로 배치
+                greeting.innerText = `반가워요, ${savedName}님!\n오늘의 목표는 [${savedGoal}] 입니다! 🔥`;
+            } else if (savedName) {
+                greeting.innerText = `반가워요, ${savedName}님! 오늘도 멋진 코딩 항해를 시작해볼까요? 🚀`;
+            } else if (savedGoal) {
+                greeting.innerText = `오늘의 목표는 [${savedGoal}] 입니다! 🔥`;
+            } else {
+                greeting.innerText = "반가워요! 오늘도 멋진 코딩 항해를 시작해볼까요? 🚀";
+            }
+        }
+
+        function saveName() {
+            const nameInput = document.getElementById('username').value.trim();
+            if (nameInput) {
+                localStorage.setItem('vibe_name', nameInput);
+                renderDashboard();
+                flashAnimation();
+            }
+        }
+
+        document.styleSheets[0].insertRule('.display-area h2 { white-space: pre-line; }', 0);
+
+        function saveGoal() {
+            const goalInput = document.getElementById('usergoal').value.trim();
+            if (goalInput) {
+                localStorage.setItem('vibe_goal', goalInput);
+                renderDashboard();
+                flashAnimation();
+            }
+        }
+
+        function handleKeyDown(event, type) {
+            if (event.key === 'Enter') {
+                if (type === 'name') saveName();
+                if (type === 'goal') saveGoal();
+            }
+        }
+
+        function flashAnimation() {
+            document.body.style.background = "linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)";
+            setTimeout(() => {
+                document.body.style.background = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)";
+            }, 700);
+        }
+
+        window.onload = function() {
+            if (localStorage.getItem('vibe_name')) {
+                document.getElementById('username').value = localStorage.getItem('vibe_name');
+            }
+            if (localStorage.getItem('vibe_goal')) {
+                document.getElementById('usergoal').value = localStorage.getItem('vibe_goal');
+            }
+            renderDashboard();
+        }
+    </script>
+</body>
+</html>
